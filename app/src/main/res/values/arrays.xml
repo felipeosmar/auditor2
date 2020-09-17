@@ -1,0 +1,43 @@
+<resources>
+    <!-- URL inicial da API de sincronia -->
+    <string name="aracajuURL">http://app.aracajuservicos.com.br/rest</string>
+
+    <!-- Opcoes para tipo de mapa -->
+    <string-array name="tipo_mapa_nome">
+        <item>Satélite</item>
+        <item>Topográfico</item>
+    </string-array>
+    <string-array name="tipo_mapa_valor">
+        <item>sat</item>
+        <item>topo</item>
+    </string-array>
+    
+    <!-- Opcoes para intervalos de sincronia com o servidor -->
+    <string-array name="sync_interval_nome">
+        <item>5 minutos</item>
+        <item>10 minutos</item>
+        <item>15 minutos</item>
+        <item>30 minutos</item>
+    </string-array>
+    <string-array name="sync_interval_valor">
+        <item>5</item>
+        <item>10</item>
+        <item>15</item>
+        <item>30</item>
+    </string-array>
+
+    <!-- Opcoes para intervalo de atualizacao de gps por segundo -->
+    <string-array name="gps_intervalos_nome">
+        <item>5 segundos</item>
+        <item>10 segundos</item>
+        <item>20 segundos</item>
+        <item>30 segundos</item>
+    </string-array>
+    <string-array name="gps_intervalos_valores">
+        <item>5</item>
+        <item>10</item>
+        <item>20</item>
+        <item>30</item>
+    </string-array>
+
+</resources>

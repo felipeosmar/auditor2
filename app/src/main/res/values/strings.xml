@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">auditor2</string>
+    <string name="title_activity_maps">Auditor2</string>
+    <string name="title_activity_settings_scrolling">Configurações</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_settings">Configurações</string>
+
+</resources>

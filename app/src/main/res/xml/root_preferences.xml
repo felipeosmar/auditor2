@@ -1,0 +1,63 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/pref_screen">
+
+    <PreferenceCategory
+        android:id="@+id/prefcat_servidor"
+        app:title="Configurações do Servidor">
+        <EditTextPreference
+            android:id="@+id/pref_url"
+            android:defaultValue="http://app.aracajuservicos.com.br/rest"
+            android:icon="@drawable/ic_cloud_upload_black_24dp"
+            android:key="url"
+            android:title="URL do Servidor" />
+        <ListPreference
+            android:id="@+id/pref_sync"
+            android:entries="@array/sync_interval_nome"
+            android:entryValues="@array/sync_interval_valor"
+            android:icon="@drawable/ic_access_time"
+            android:key="sync_interval"
+            android:title="Intervalo de Sincronia" />
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:id="@+id/prefcat_mapa"
+        app:title="Configuracoes do Mapa">
+        <CheckBoxPreference
+            android:id="@+id/pref_movemapa"
+            android:defaultValue="true"
+            android:icon="@drawable/ic_gps_fixed"
+            android:key="move_mapa"
+            android:summary="Posiciona o mapa na localizaçao atual"
+            android:title="Mover mapa" />
+        <CheckBoxPreference
+            android:id="@+id/pref_pontoinativo"
+            android:defaultValue="false"
+            android:icon="@drawable/ic_edit_location"
+            android:key="mostra_inativos"
+            android:summary="Mostra pontos Inativos no mapa"
+            android:title="Mostrar Inativos" />
+        <ListPreference
+            android:id="@+id/pref_tipomapa"
+            android:entries="@array/tipo_mapa_nome"
+            android:entryValues="@array/tipo_mapa_valor"
+            android:icon="@drawable/ic_map"
+            android:key="tipo_mapa"
+            android:title="Tipo de Mapa" />
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:id="@+id/prefcat_gps"
+        android:title="Configurações do GPS">
+
+        <ListPreference
+            android:id="@+id/pref_gpsinterval"
+            android:entries="@array/gps_intervalos_nome"
+            android:entryValues="@array/gps_intervalos_valores"
+            android:icon="@drawable/ic_timelapse"
+            android:key="gps_interval"
+            android:summary="Tempo em que o gps atualiza, em segundos."
+            android:title="Tempo de atualização do GPS" />
+    </PreferenceCategory>
+
+</PreferenceScreen>
