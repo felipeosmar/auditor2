@@ -1,11 +1,15 @@
 package br.com.aracajucontroledepragas.auditor2;
 
+import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.FragmentActivity;
 import androidx.preference.PreferenceManager;
 
+import android.Manifest;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -16,15 +20,16 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-public class MapsActivity extends FragmentActivity implements OnMapReadyCallback, SharedPreferences.OnSharedPreferenceChangeListener {
+public class MapsActivity extends FragmentActivity implements  GoogleMap.OnInfoWindowLongClickListener, GoogleMap.OnInfoWindowClickListener,  OnMapReadyCallback, SharedPreferences.OnSharedPreferenceChangeListener {
 
     private GoogleMap mMap;
     FloatingActionButton fabSettings, fabPonto;
     Animation fabOpen, fabClose, rotateForward, rotateBackward;
-    boolean isOpen=false;
+    boolean isOpen = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,10 +74,24 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
 
-        // Add a marker in Sydney and move the camera
-        LatLng sydney = new LatLng(-34, 151);
-        mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+        mMap.setIndoorEnabled(false);
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            return;
+        }
+        mMap.setMyLocationEnabled(true);
+        mMap.setMapType(GoogleMap.MAP_TYPE_SATELLITE);
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(new LatLng(-26.3594415, -49.2029469)));
+        //mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(-26.3594415, -49.2029469), 8));
+        mMap.setOnInfoWindowClickListener(this);
+        mMap.setOnInfoWindowLongClickListener(this);
+        mMap.getUiSettings().setCompassEnabled(true);
     }
 
     public void abreSettings(View view) {
@@ -102,4 +121,40 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     }
 
 
+    @Override
+    public void onInfoWindowClick(Marker marker) {
+        /*
+        Ponto pontoclicado = bancodedados.pontoDao().getPontoByID(Integer.valueOf(marker.getTag().toString()));
+        if (pontoclicado.getTipoponto().equals("Coleta")) {
+            novaColeta((Integer) marker.getTag());
+        }
+        if (pontoclicado.getTipoponto().equals("Vazão")) {
+            novaVazao((Integer) marker.getTag());
+        }
+        if (pontoclicado.getTipoponto().equals("Aplicação")) {
+
+            String pontos_aplicacao_manual = bancodedados.ConfiguracaoDao().getConfiguracaoByNome("pontos_aplicacao_manual").getDado();
+            String[] pontos_aplicacao_manual_array = pontos_aplicacao_manual.split(";");
+            for (int i=0;  i < pontos_aplicacao_manual_array.length; i++) {
+                if ( pontos_aplicacao_manual_array[i].equals( String.valueOf(pontoclicado.getId() ) ) ) {
+                    Log.d(TAG, "Clicado no ponto com marcacao maual ID: " +  String.valueOf(pontoclicado.getId() ) );
+                    novaAplicacao( pontoclicado.getId() );
+                }
+            }
+        }  */
+    }
+
+    @Override
+    public void onInfoWindowLongClick(Marker marker) {
+        /*
+        if (marker.getTitle().contains("TEMP")) {
+            editaPontotemp( (Integer) marker.getTag() ) ;
+            Log.d(TAG,"contem TEMP ID: " + marker.getTag());
+
+        }else{
+
+            editaPonto( (Integer) marker.getTag() );
+            Log.d(TAG,"nao contem TEMP ID: " + marker.getTag());
+        } */
+    }
 }
